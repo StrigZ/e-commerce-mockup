@@ -9,7 +9,7 @@ function App() {
     const [count, setCount] = useState(0);
     return (
         <>
-            <section id="center">
+            <section id="center" className="bg-red-600">
                 <div className="hero">
                     <img
                         src={heroImg}
