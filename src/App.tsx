@@ -1,18 +1,21 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 
-import AdsPage from './pages/AdsPage';
-import EditPage from './pages/EditPage';
-import ItemPage from './pages/ItemPage';
+import Layout from './components/Layout';
+import AdsPage from './pages/ads-page';
+import EditPage from './pages/edit-page';
+import ItemPage from './pages/item-page';
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="ads" element={<AdsPage />} />
-                <Route path="ads/:id" element={<ItemPage />} />
-                <Route path="ads/:id/edit" element={<EditPage />} />
+                <Route path="/" element={<Layout />}>
+                    <Route path="ads" element={<AdsPage />} />
+                    <Route path="ads/:id" element={<ItemPage />} />
+                    <Route path="ads/:id/edit" element={<EditPage />} />
 
-                <Route path="*" element={<Navigate to="/ads" replace />} />
+                    <Route path="*" element={<Navigate to="/ads" replace />} />
+                </Route>
             </Routes>
         </BrowserRouter>
     );
