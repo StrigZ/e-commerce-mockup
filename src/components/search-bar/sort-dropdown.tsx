@@ -85,6 +85,7 @@ export default function SortDropdown() {
                     sortDirections.map((direction) => (
                         <SelectItem
                             value={convertParamsToString(column, direction)}
+                            key={convertParamsToString(column, direction)}
                         >
                             {getDisplayText(column, direction)}
                         </SelectItem>

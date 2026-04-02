@@ -39,6 +39,7 @@ export default function Pagination() {
                     .fill(null)
                     .map((_, i) => (
                         <Button
+                            key={i}
                             className={cn('text-foreground/85 bg-white', {
                                 'border-button-active text-button-active border':
                                     i + 1 === currentPage,
