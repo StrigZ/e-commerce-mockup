@@ -1,17 +1,19 @@
 import { Switch } from '@/components/ui/switch';
-import { useState } from 'react';
+import { useAdsQueryContext } from '@/context/ads-query-provider';
 
-type Props = {};
-export default function NeedRevisionSwitch({}: Props) {
-    const [isActive, setIsActive] = useState(false);
+export default function NeedRevisionSwitch() {
+    const { queryParams, updateQueryParam } = useAdsQueryContext();
+
+    const handleCheckedChange = (checked: boolean) =>
+        updateQueryParam({ skip: 0, needsRevision: !!checked });
 
     return (
         <label className="flex items-center justify-between text-sm font-bold">
             Только требующие доработок
             <Switch
                 size="default"
-                checked={isActive}
-                onCheckedChange={setIsActive}
+                checked={queryParams.needsRevision}
+                onCheckedChange={handleCheckedChange}
             />
         </label>
     );
