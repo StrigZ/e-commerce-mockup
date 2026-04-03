@@ -1,12 +1,7 @@
+import { categoryToDisplayTextMap } from '@/constants';
 import type { Item } from '@/types';
 import { Image } from 'lucide-react';
 import { Link } from 'react-router';
-
-const categoryToDisplayTextMap: Record<string, string> = {
-    auto: 'Авто',
-    real_estate: 'Недвижимость',
-    electronics: 'Электроника',
-};
 
 export default function AdsGridItem({
     id,

@@ -39,3 +39,15 @@ export const paramToTextMap: Record<ItemParam, string> = {
     type: 'Тип',
     yearOfManufacture: 'Год производства',
 };
+
+export const categoryToParamsMap = {
+    auto: autoItemParams,
+    real_estate: realEstateParams,
+    electronics: electronicsParams,
+};
+
+export const categoryToDisplayTextMap: Record<string, string> = {
+    auto: 'Авто',
+    real_estate: 'Недвижимость',
+    electronics: 'Электроника',
+};

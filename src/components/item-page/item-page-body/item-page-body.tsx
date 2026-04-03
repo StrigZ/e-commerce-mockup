@@ -1,20 +1,10 @@
-import {
-    autoItemParams,
-    electronicsParams,
-    realEstateParams,
-} from '@/constants';
+import { categoryToParamsMap } from '@/constants';
 import type { Item, ItemParam } from '@/types';
 import { Image } from 'lucide-react';
 
 import ItemPageBodyCharacteristics from './item-page-body-characteristics';
 import ItemPageBodyDescription from './item-page-body-description';
 import ItemPageBodyMissingParams from './item-page-body-missing-params';
-
-const categoryToParamsMap = {
-    auto: autoItemParams,
-    real_estate: realEstateParams,
-    electronics: electronicsParams,
-};
 
 function getParamValue(params: Item['params'], param: ItemParam) {
     return (params as Record<ItemParam, string | number | undefined>)[param];
