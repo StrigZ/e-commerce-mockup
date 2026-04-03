@@ -55,6 +55,11 @@ export type ElectronicsItemType = 'phone' | 'laptop' | 'misc';
 export type ElectronicsItemCondition = 'new' | 'used';
 export type ElectronicsItemParam = keyof ElectronicsItemParams;
 
+export type ItemParam =
+    | AutoItemParam
+    | RealEstateItemParam
+    | ElectronicsItemParam;
+
 export type ItemSortColumn = Extract<keyof Item, 'title' | 'createdAt'>;
 
 export type SortDirection = 'asc' | 'desc';

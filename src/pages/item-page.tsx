@@ -1,4 +1,4 @@
-import ItemPageBody from '@/components/item-page/item-page-body';
+import ItemPageBody from '@/components/item-page/item-page-body/item-page-body';
 import ItemPageHeader from '@/components/item-page/item-page-header';
 import LoadingSpinner from '@/components/ui/loading-spinner';
 import { Separator } from '@/components/ui/separator';
