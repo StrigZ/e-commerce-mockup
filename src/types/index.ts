@@ -65,7 +65,10 @@ export type ItemSortColumn = Extract<keyof Item, 'title' | 'createdAt'>;
 
 export type SortDirection = 'asc' | 'desc';
 
-export type UpdateAdItem = Omit<Item, 'id' | 'createdAt' | 'updatedAt'>;
+export type UpdateAdItem = Omit<
+    Item,
+    'id' | 'createdAt' | 'updatedAt' | 'needsRevision'
+>;
 export type UpdateAdInput = {
     id: string;
     data: UpdateAdItem;
