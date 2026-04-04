@@ -1,7 +1,9 @@
 import { categories, categoryToParamsMap } from '@/constants';
 import type { Category, Item, ItemParam } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
 import { type Resolver, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import * as z from 'zod';
 
 import { useAdMutations } from './useAdMutations';
@@ -58,7 +60,7 @@ export default function useEditAdForm({
 }) {
     const { params, ...itemFields } = item;
     const isSameCategory = category === item.category;
-
+    const navigate = useNavigate();
     const formSchema = buildFormSchema(category);
 
     type FormValues = Omit<z.infer<typeof formSchema>, 'price'> & {
@@ -76,6 +78,24 @@ export default function useEditAdForm({
         mode: 'onBlur',
     });
 
+    useEffect(() => {
+        const saved = localStorage.getItem(`edit-form-${item.id}`);
+        if (saved) {
+            form.reset(JSON.parse(saved), { keepDefaultValues: true });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        const subscription = form.watch((values) => {
+            localStorage.setItem(
+                `edit-form-${item.id}`,
+                JSON.stringify(values),
+            );
+        });
+        return () => subscription.unsubscribe();
+    }, [form, item.id]);
+
     const updateAdMutations = useAdMutations();
 
     function onSubmit(data: z.infer<typeof formSchema>) {
@@ -92,7 +112,18 @@ export default function useEditAdForm({
             id: String(item.id),
             data: { price, category, title, description, params },
         });
+        localStorage.removeItem(`edit-form-${item.id}`);
     }
 
-    return { form, onSubmit, isLoading: updateAdMutations.isUpdating };
+    const cancelEdit = () => {
+        localStorage.removeItem(`edit-form-${item.id}`);
+        navigate('/ads/' + item.id);
+    };
+
+    return {
+        form,
+        onSubmit,
+        isLoading: updateAdMutations.isUpdating,
+        cancelEdit,
+    };
 }

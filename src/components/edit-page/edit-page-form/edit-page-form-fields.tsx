@@ -1,11 +1,9 @@
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import useEditAdForm from '@/hooks/use-edit-ad-form';
-import { cn } from '@/lib/utils';
 import type { Category, Item } from '@/types';
 import { Loader } from 'lucide-react';
 import { FormProvider } from 'react-hook-form';
-import { Link } from 'react-router';
 
 import EditPageFormBaseFields from './edit-page-form-base-fields';
 import EditPageFormCategoryParamsFields from './edit-page-form-category-params-fields';
@@ -16,7 +14,10 @@ type Props = {
     category: Category;
 };
 export default function EditPageFormFields({ item, category }: Props) {
-    const { form, onSubmit, isLoading } = useEditAdForm({ category, item });
+    const { form, onSubmit, isLoading, cancelEdit } = useEditAdForm({
+        category,
+        item,
+    });
 
     return (
         <FormProvider {...form}>
@@ -45,19 +46,14 @@ export default function EditPageFormFields({ item, category }: Props) {
                             ' Сохранить'
                         )}
                     </Button>
-                    <Link
-                        to={`/ads/${item.id}`}
-                        className={cn(
-                            buttonVariants(),
-                            'bg-muted! text-foreground/85!',
-                            {
-                                'text-foreground/45! pointer-events-none! cursor-not-allowed!':
-                                    isLoading,
-                            },
-                        )}
+                    <Button
+                        className="bg-muted text-foreground/85"
+                        type="button"
+                        onClick={cancelEdit}
+                        disabled={isLoading}
                     >
                         Отменить
-                    </Link>
+                    </Button>
                 </div>
             </form>
         </FormProvider>
