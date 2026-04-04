@@ -2,6 +2,7 @@
 import {
     Field,
     FieldContent,
+    FieldError,
     FieldLabel,
     FieldSet,
 } from '@/components/ui/field';
@@ -18,6 +19,7 @@ import {
     paramToTextMap,
     paramValueToTextMap,
 } from '@/constants';
+import { cn } from '@/lib/utils';
 import type { Category, ItemParam } from '@/types';
 import { Controller, useFormContext } from 'react-hook-form';
 
@@ -28,6 +30,7 @@ type Props = {
 export default function EditPageFormCategoryParamsFields({ category }: Props) {
     const form = useFormContext();
     const categoryParams = categoryToParamsMap[category];
+
     return (
         <FieldSet className="md:max-w-1/2">
             <FieldLabel>Характеристики</FieldLabel>
@@ -35,19 +38,30 @@ export default function EditPageFormCategoryParamsFields({ category }: Props) {
                 const options = paramValueToTextMap[category][param];
 
                 return (
-                    <Field key={param}>
-                        <FieldLabel>{paramToTextMap[param]}</FieldLabel>
-                        <FieldContent>
-                            <Controller
-                                control={form.control}
-                                name={param as ItemParam}
-                                render={({ field: { value, onChange } }) =>
-                                    options ? (
+                    <Controller
+                        control={form.control}
+                        name={param as ItemParam}
+                        render={({ field, fieldState }) => (
+                            <Field
+                                key={param}
+                                data-invalid={fieldState.invalid}
+                            >
+                                <FieldLabel htmlFor={`edit-form-${param}`}>
+                                    {paramToTextMap[param]}
+                                </FieldLabel>
+                                <FieldContent>
+                                    {options ? (
                                         <Select
-                                            value={value}
-                                            onValueChange={onChange}
+                                            value={field.value}
+                                            onValueChange={field.onChange}
                                         >
-                                            <SelectTrigger className="w-full">
+                                            <SelectTrigger
+                                                className={cn('w-full', {
+                                                    'border-secondary-foreground':
+                                                        !field.value,
+                                                })}
+                                                id={`edit-form-${param}`}
+                                            >
                                                 <SelectValue />
                                             </SelectTrigger>
                                             <SelectContent
@@ -68,14 +82,25 @@ export default function EditPageFormCategoryParamsFields({ category }: Props) {
                                         </Select>
                                     ) : (
                                         <Input
-                                            value={value ?? ''}
-                                            onChange={onChange}
+                                            {...field}
+                                            id={`edit-form-${param}`}
+                                            className={cn({
+                                                'border-secondary-foreground':
+                                                    !field.value,
+                                            })}
+                                            aria-invalid={fieldState.invalid}
+                                            autoComplete="off"
                                         />
-                                    )
-                                }
-                            />
-                        </FieldContent>
-                    </Field>
+                                    )}
+                                    {fieldState.invalid && (
+                                        <FieldError
+                                            errors={[fieldState.error]}
+                                        />
+                                    )}
+                                </FieldContent>
+                            </Field>
+                        )}
+                    />
                 );
             })}
         </FieldSet>

@@ -1,3 +1,4 @@
+import { Separator } from '@/components/ui/separator';
 import type { Category, Item } from '@/types';
 import { useState } from 'react';
 
@@ -13,6 +14,7 @@ export default function EditPageForm(item: Item) {
                 value={category}
                 onChange={setCategory}
             />
+            <Separator className="my-4.5" />
             <EditPageFormFields
                 key={category}
                 item={item}

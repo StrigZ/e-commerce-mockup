@@ -14,7 +14,7 @@ import EditPageFormDescriptionField from './edit-page-form-description-field';
 
 const baseSchema = z.object({
     category: z.enum(categories),
-    title: z.string().nonempty('Название не может быть пустым'),
+    title: z.string().nonempty('Название должно быть заполнено'),
     price: z.coerce
         .number()
         .min(0, 'Цена не может быть отрицательной') as z.ZodNumber,
@@ -65,7 +65,7 @@ export default function EditPageFormFields({ item, category }: Props) {
             price: item.price ?? 0,
             category,
         },
-        mode: 'onChange',
+        mode: 'onBlur',
     });
 
     function onSubmit(data: z.infer<typeof formSchema>) {
@@ -79,7 +79,6 @@ export default function EditPageFormFields({ item, category }: Props) {
                 className="space-y-4.5"
             >
                 <EditPageFormBaseFields />
-                <Separator />
                 <EditPageFormCategoryParamsFields category={category} />
                 <Separator />
                 <EditPageFormDescriptionField />

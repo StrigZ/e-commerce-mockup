@@ -14,7 +14,7 @@ export default function EditPage() {
 
     return (
         <main className="space-y-4.5 p-8 pb-12">
-            <h2 className="text-foreground/85 text-3xl font-medium">
+            <h2 className="text-foreground/85 text-2xl font-medium sm:text-3xl">
                 Редактирование объявления
             </h2>
             <EditPageForm {...data} />
