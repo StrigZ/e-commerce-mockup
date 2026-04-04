@@ -19,6 +19,7 @@ export function useAdMutations() {
                     queryKey: adKeys.detail(variables.id),
                 }),
             ]);
+            localStorage.removeItem(`edit-form-${variables.id}`);
             toast.success('Изменения сохранены', { position: 'top-right' });
             navigate(`/ads/${variables.id}`);
         },

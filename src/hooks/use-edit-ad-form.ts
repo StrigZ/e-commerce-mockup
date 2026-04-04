@@ -112,7 +112,6 @@ export default function useEditAdForm({
             id: String(item.id),
             data: { price, category, title, description, params },
         });
-        localStorage.removeItem(`edit-form-${item.id}`);
     }
 
     const cancelEdit = () => {
