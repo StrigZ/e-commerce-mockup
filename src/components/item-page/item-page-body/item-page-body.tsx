@@ -10,7 +10,12 @@ function getParamValue(params: Item['params'], param: ItemParam) {
     return (params as Record<ItemParam, string | number | undefined>)[param];
 }
 
-export default function ItemPageBody({ description, params, category }: Item) {
+export default function ItemPageBody({
+    description,
+    params,
+    category,
+    needsRevision,
+}: Item) {
     const categoryParams = categoryToParamsMap[category];
     const paramsArray = Object.entries(params) as [
         ItemParam,
@@ -29,7 +34,7 @@ export default function ItemPageBody({ description, params, category }: Item) {
                         <Image size={144} />
                     </div>
                     <div className="space-y-9">
-                        {missingParams.length > 0 && (
+                        {needsRevision && (
                             <ItemPageBodyMissingParams
                                 missingParams={missingParams}
                             />
