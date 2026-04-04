@@ -1,10 +1,12 @@
-import Fastify from 'fastify';
+import 'dotenv/config'; 
 
+import Fastify from 'fastify';
 import items from 'data/items.json' with { type: 'json' };
 import { Item } from 'src/types.ts';
 import { ItemsGetInQuerySchema, ItemUpdateInSchema } from 'src/validation.ts';
 import { treeifyError, ZodError } from 'zod';
 import { doesItemNeedRevision } from './src/utils.ts';
+import { aiApiClient } from 'src/ai-client.ts';
 
 const ITEMS = items as Item[];
 
@@ -173,6 +175,38 @@ fastify.put<ItemUpdateRequest>('/items/:id', (request, reply) => {
 
     throw error;
   }
+});
+
+interface GenerateDescriptionRequestBody {
+    item: Item;
+}
+
+interface GenerateDescriptionRequest extends Fastify.RequestGenericInterface {
+    Body: GenerateDescriptionRequestBody;
+}
+
+fastify.post<GenerateDescriptionRequest>('/ai/description', async (request) => {
+    const { item } = request.body;
+
+    const result = await aiApiClient.getDescription(item)
+
+    return { description: result };
+});
+
+interface GeneratePriceRequestBody {
+    item: Item;
+}
+
+interface GeneratePriceRequest extends Fastify.RequestGenericInterface {
+    Body: GeneratePriceRequestBody;
+}
+
+fastify.post<GeneratePriceRequest>('/ai/price', async (request) => {
+    const { item } = request.body;
+
+    const result = await aiApiClient.getMarketPrice(item)
+
+    return { price: result };
 });
 
 const port = 8080;
