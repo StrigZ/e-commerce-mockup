@@ -20,7 +20,7 @@ const defaultQueryParams: QueryParamsObject = {
 };
 
 type AdsQueryContext = {
-    ads: Item[];
+    ads: Omit<Item, 'params'>[];
     total: number;
     queryParams: QueryParamsObject;
     isLoading: boolean;
@@ -35,6 +35,7 @@ const AdsQueryContext = createContext<AdsQueryContext>({
     updateQueryParam: () => {},
 });
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAdsQueryContext = () => useContext(AdsQueryContext);
 
 type Props = { children: ReactNode };

@@ -7,6 +7,7 @@ export type Item = {
     price: number | null;
     createdAt: string;
     updatedAt: string;
+    needsRevision: boolean;
 } & (
     | {
           category: 'auto';

@@ -8,8 +8,8 @@ export default function AdsGridItem({
     title,
     price,
     category,
-    description,
-}: Item) {
+    needsRevision,
+}: Omit<Item, 'params'>) {
     return (
         <li className="bg-card w-full cursor-pointer overflow-hidden rounded-2xl shadow-sm">
             <Link to={String(id)} className="flex h-full flex-col">
@@ -26,7 +26,7 @@ export default function AdsGridItem({
                     <p className="text-foreground/45 mt-auto text-base leading-[1.4] font-semibold tracking-normal">
                         {price} ₽
                     </p>
-                    {!description && (
+                    {needsRevision && (
                         <div className="bg-secondary text-secondary-foreground flex w-fit items-center gap-2 rounded-lg px-2 py-0.5 text-sm">
                             <div className="bg-secondary-foreground h-1.5 w-1.5 rounded-full" />
                             Требует доработок

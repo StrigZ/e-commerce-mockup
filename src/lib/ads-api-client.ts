@@ -7,7 +7,7 @@ const API_URL = 'http://localhost:8080';
 class AdsApiClient {
     public async getItems(
         params?: QueryParamsObject,
-    ): Promise<{ items: Item[]; total: number }> {
+    ): Promise<{ items: Omit<Item, 'params'>[]; total: number }> {
         const queryParams = params ? getQueryParamsString(params) : '';
 
         return (await fetch(`${API_URL}/items${queryParams}`)).json();
