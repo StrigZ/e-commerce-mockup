@@ -1,7 +1,7 @@
 import type { Item } from '@/types';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
-import { Edit } from 'lucide-react';
+import { ArrowLeft, Edit } from 'lucide-react';
 import { Link } from 'react-router';
 
 import { buttonVariants } from '../ui/button';
@@ -14,6 +14,9 @@ export default function ItemPageHeader({
 }: Item) {
     return (
         <header className="flex flex-col gap-3">
+            <Link to={'/ads'} className="flex items-center gap-1">
+                <ArrowLeft /> Назад
+            </Link>
             <h2 className="text-foreground/85 flex items-center justify-between text-xl font-medium md:text-3xl">
                 {title} <span>{price} ₽</span>
             </h2>
