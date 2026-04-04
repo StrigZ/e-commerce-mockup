@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { Controller, useFormContext } from 'react-hook-form';
+import { Fragment } from 'react/jsx-runtime';
 
 import EditPageFormClearButton from './edit-page-form-clear-button';
 import EditPageFormGenerateButton from './edit-page-form-generate-button';
@@ -26,7 +27,7 @@ const baseFields = [
 export default function EditPageFormBaseFields() {
     const form = useFormContext();
     return baseFields.map(({ fieldName, fieldText }) => (
-        <>
+        <Fragment key={fieldName}>
             <Controller
                 control={form.control}
                 name={fieldName}
@@ -93,6 +94,6 @@ export default function EditPageFormBaseFields() {
                 )}
             />
             <Separator className="my-4.5" />
-        </>
+        </Fragment>
     ));
 }

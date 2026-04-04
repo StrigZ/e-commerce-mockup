@@ -40,13 +40,11 @@ export default function EditPageFormCategoryParamsFields({ category }: Props) {
 
                 return (
                     <Controller
+                        key={param}
                         control={form.control}
                         name={param as ItemParam}
                         render={({ field, fieldState }) => (
-                            <Field
-                                key={param}
-                                data-invalid={fieldState.invalid}
-                            >
+                            <Field data-invalid={fieldState.invalid}>
                                 <FieldLabel htmlFor={`edit-form-${param}`}>
                                     {paramToTextMap[param]}
                                 </FieldLabel>
