@@ -83,8 +83,11 @@ export default function useEditAdForm({
         const categoryParams = categoryToParamsMap[category];
 
         const params = Object.fromEntries(
-            categoryParams.map((param) => [param, data[param]]),
+            categoryParams
+                .filter((param) => data[param] !== '')
+                .map((param) => [param, data[param]]),
         );
+
         updateAdMutations.updateAd({
             id: String(item.id),
             data: { price, category, title, description, params },
