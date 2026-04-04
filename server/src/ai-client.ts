@@ -38,10 +38,8 @@ class AIApiClient {
 
     public async getDescription(item:Item): Promise<string> {
       if (item.description) {
-      // improve description
          return this.getAnswer(getImproveDescriptionPrompt(item));
       } 
-      // generate description    
        return this.getAnswer(getGenerateDescriptionPrompt(item));
     }
 

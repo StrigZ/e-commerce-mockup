@@ -1,4 +1,3 @@
-// components/edit-page-form/category-params-fields.tsx
 import {
     Field,
     FieldContent,
