@@ -23,6 +23,8 @@ import { cn } from '@/lib/utils';
 import type { Category, ItemParam } from '@/types';
 import { Controller, useFormContext } from 'react-hook-form';
 
+import EditPageFormClearButton from './edit-page-form-clear-button';
+
 type Props = {
     category: Category;
 };
@@ -81,16 +83,29 @@ export default function EditPageFormCategoryParamsFields({ category }: Props) {
                                             </SelectContent>
                                         </Select>
                                     ) : (
-                                        <Input
-                                            {...field}
-                                            id={`edit-form-${param}`}
-                                            className={cn({
-                                                'border-secondary-foreground':
-                                                    !field.value,
-                                            })}
-                                            aria-invalid={fieldState.invalid}
-                                            autoComplete="off"
-                                        />
+                                        <div className="relative">
+                                            <Input
+                                                {...field}
+                                                id={`edit-form-${param}`}
+                                                className={cn({
+                                                    'border-secondary-foreground':
+                                                        !field.value,
+                                                })}
+                                                aria-invalid={
+                                                    fieldState.invalid
+                                                }
+                                                autoComplete="off"
+                                            />
+                                            <EditPageFormClearButton
+                                                className="absolute top-1/2 right-2.5 -translate-y-1/2"
+                                                onClear={() =>
+                                                    form.setValue(
+                                                        field.name,
+                                                        '',
+                                                    )
+                                                }
+                                            />
+                                        </div>
                                     )}
                                     {fieldState.invalid && (
                                         <FieldError
