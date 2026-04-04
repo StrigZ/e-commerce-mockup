@@ -3,6 +3,7 @@ import { Separator } from '@/components/ui/separator';
 import useEditAdForm from '@/hooks/use-edit-ad-form';
 import { cn } from '@/lib/utils';
 import type { Category, Item } from '@/types';
+import { Loader } from 'lucide-react';
 import { FormProvider } from 'react-hook-form';
 import { Link } from 'react-router';
 
@@ -15,7 +16,7 @@ type Props = {
     category: Category;
 };
 export default function EditPageFormFields({ item, category }: Props) {
-    const { form, onSubmit } = useEditAdForm({ category, item });
+    const { form, onSubmit, isLoading } = useEditAdForm({ category, item });
 
     return (
         <FormProvider {...form}>
@@ -34,16 +35,25 @@ export default function EditPageFormFields({ item, category }: Props) {
                         disabled={
                             !form.formState.isValid ||
                             (!form.formState.isDirty &&
-                                category === item.category)
+                                category === item.category) ||
+                            isLoading
                         }
                     >
-                        Сохранить
+                        {isLoading ? (
+                            <Loader className="animate-spin" />
+                        ) : (
+                            ' Сохранить'
+                        )}
                     </Button>
                     <Link
                         to={`/ads/${item.id}`}
                         className={cn(
                             buttonVariants(),
-                            'bg-muted! text-foreground/45!',
+                            'bg-muted! text-foreground/85!',
+                            {
+                                'text-foreground/45! pointer-events-none! cursor-not-allowed!':
+                                    isLoading,
+                            },
                         )}
                     >
                         Отменить

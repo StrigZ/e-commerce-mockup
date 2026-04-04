@@ -31,5 +31,6 @@ export function useAdMutations() {
 
     return {
         updateAd: updateAdMutation.mutate,
+        isUpdating: updateAdMutation.isPending,
     };
 }

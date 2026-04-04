@@ -85,12 +85,11 @@ export default function useEditAdForm({
         const params = Object.fromEntries(
             categoryParams.map((param) => [param, data[param]]),
         );
-
         updateAdMutations.updateAd({
             id: String(item.id),
             data: { price, category, title, description, params },
         });
     }
 
-    return { form, onSubmit };
+    return { form, onSubmit, isLoading: updateAdMutations.isUpdating };
 }
