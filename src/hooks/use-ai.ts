@@ -1,9 +1,12 @@
 import { categoryToParamsMap } from '@/constants';
 import { aiApiClient } from '@/lib/ai-api-client';
 import type { Category, Item } from '@/types';
+import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 export default function useAI() {
+    const [isDescriptionLoading, setIsDescriptionLoading] = useState(false);
+    const [isPriceLoading, setIsPriceLoading] = useState(false);
     const form = useFormContext();
     const formFields = form.getValues();
     const { price, category, title, description } = formFields;
@@ -23,8 +26,29 @@ export default function useAI() {
         params,
     } as Item;
 
-    const generateDescription = () => aiApiClient.getDescription(item);
-    const generatePriceOverview = () => aiApiClient.getMarketPrice(item);
+    const generateDescription = async () => {
+        setIsDescriptionLoading(true);
+        try {
+            const res = await aiApiClient.getDescription(item);
+            return res.description;
+        } finally {
+            setIsDescriptionLoading(false);
+        }
+    };
 
-    return { generateDescription, generatePriceOverview };
+    const generatePriceOverview = async () => {
+        setIsPriceLoading(true);
+        try {
+            const res = await aiApiClient.getMarketPrice(item);
+            return res;
+        } finally {
+            setIsPriceLoading(false);
+        }
+    };
+
+    return {
+        generateDescription,
+        generatePriceOverview,
+        isLoading: isDescriptionLoading || isPriceLoading,
+    };
 }

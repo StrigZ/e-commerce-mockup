@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import EditPageFormClearButton from './edit-page-form-clear-button';
+import EditPageFormGenerateButton from './edit-page-form-generate-button';
 
 const baseFields = [
     {
@@ -65,6 +66,18 @@ export default function EditPageFormBaseFields() {
                             </div>
                             {fieldState.invalid && (
                                 <FieldError errors={[fieldState.error]} />
+                            )}
+                            {field.name === 'price' && (
+                                <EditPageFormGenerateButton
+                                    type="price"
+                                    onAccept={(value: string) =>
+                                        form.setValue(field.name, value, {
+                                            shouldValidate: true,
+                                            shouldDirty: true,
+                                            shouldTouch: true,
+                                        })
+                                    }
+                                />
                             )}
                         </FieldContent>
                     </Field>
