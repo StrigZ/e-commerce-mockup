@@ -25,7 +25,7 @@ export default function ItemPageBody({ description, params, category }: Item) {
     }
 
     const assignedParams = paramsArray.filter(([, value]) => Boolean(value));
-    console.log(missingParams);
+
     return (
         <div>
             <div className="space-y-8">
