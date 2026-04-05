@@ -21,8 +21,13 @@ export default function AdsGridItem({
                     'flex-col': layout === 'grid',
                 })}
             >
-                <div className="bg-muted flex aspect-4/3 items-center justify-center">
-                    <Image size={72} />
+                <div className="bg-muted flex items-center justify-center p-2 sm:aspect-4/3">
+                    <Image
+                        className={cn({
+                            'sm:h-18 sm:w-18': layout === 'list',
+                            'h-18 w-18': layout === 'grid',
+                        })}
+                    />
                 </div>
                 <div
                     className={cn('relative flex h-full flex-col gap-1 p-4', {
@@ -38,11 +43,7 @@ export default function AdsGridItem({
                     >
                         {categoryToDisplayTextMap[category]}
                     </p>
-                    <h5
-                        className={cn('text-foreground text-base', {
-                            truncate: layout === 'grid',
-                        })}
-                    >
+                    <h5 className="text-foreground truncate text-base">
                         {title}
                     </h5>
                     <p
