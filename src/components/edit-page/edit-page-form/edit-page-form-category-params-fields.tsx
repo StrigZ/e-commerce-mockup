@@ -85,7 +85,7 @@ export default function EditPageFormCategoryParamsFields({ category }: Props) {
                                                 {...field}
                                                 id={`edit-form-${param}`}
                                                 className={cn({
-                                                    'border-secondary-foreground':
+                                                    'border-warning-foreground':
                                                         !field.value,
                                                 })}
                                                 aria-invalid={
