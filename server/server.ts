@@ -211,7 +211,7 @@ fastify.post<GeneratePriceRequest>('/ai/price', async (request) => {
 
 const port = 8080;
 
-fastify.listen({ port }, function (err) {
+fastify.listen({ port, host: "0.0.0.0" }, function (err) {
   if (err) {
     fastify.log.error(err);
     process.exit(1);
