@@ -2,7 +2,7 @@ import type { Item, QueryParamsObject, UpdateAdItem } from '@/types';
 
 import { getQueryParamsString } from './utils';
 
-const API_URL = 'http://localhost:8080';
+const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8080';
 
 class AdsApiClient {
     public async getItems(
